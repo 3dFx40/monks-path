@@ -6,7 +6,7 @@
 
 ## התקנה
 
-1. הורידו את `monks-path-1.0.3.apk` מעמוד [ההפצות](https://github.com/3dFx40/monks-path/releases/latest).
+1. הורידו את `monks-path-1.0.4.apk` מעמוד [ההפצות](https://github.com/3dFx40/monks-path/releases/latest).
 2. פתחו את הקובץ בנייד. אם Android מבקש, אפשרו התקנה מהדפדפן או ממנהל הקבצים שבו פתחתם אותו.
 3. התקינו ופתחו את **דרך הנזיר**. בעדכון עתידי התקינו מעל הגרסה הקיימת כדי לשמור על ההתקדמות.
 
@@ -17,7 +17,7 @@
 ```powershell
 pwsh -NoProfile -File scripts/build-android.ps1
 # גרסה חדשה: יש להגדיל את קוד הגרסה
-pwsh -NoProfile -File scripts/build-android.ps1 -VersionName 1.0.4 -VersionCode 5
+pwsh -NoProfile -File scripts/build-android.ps1 -VersionName 1.0.5 -VersionCode 6
 # לצורכי פיתוח בלבד: מאפשר בדיקת WebView בכלי דפדפן
 pwsh -NoProfile -File scripts/build-android.ps1 -DebugBuild
 ```
