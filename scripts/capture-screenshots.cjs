@@ -1,0 +1,50 @@
+// Developer tool: npm install --no-save playwright, then run with the local server up.
+const { chromium } = require('playwright');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const url = process.argv[2] || 'http://localhost:5173';
+const out = path.resolve(__dirname, '../docs/screenshots');
+(async () => {
+  fs.mkdirSync(out, { recursive: true });
+  const browser = await chromium.launch({ headless: true });
+  const errors = [];
+  try {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await context.newPage();
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('response', r => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
+    await page.goto(url);
+    await page.waitForFunction(() => window.MonkGame && window.render_game_to_text);
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: path.join(out, 'title-desktop.png') });
+    await page.click('#start-btn');
+    await page.keyboard.down('ArrowRight');
+    await page.waitForTimeout(1800);
+    await page.keyboard.up('ArrowRight');
+    await page.keyboard.press('KeyX');
+    await page.screenshot({ path: path.join(out, 'combat-desktop.png') });
+    assert.equal(JSON.parse(await page.evaluate(() => render_game_to_text())).mode, 'playing');
+    await page.click('#inventory-btn');
+    await page.screenshot({ path: path.join(out, 'equipment-desktop.png') });
+    const mobile = await browser.newContext({ viewport: { width: 915, height: 412 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
+    const phone = await mobile.newPage();
+    phone.on('pageerror', e => errors.push(e.message));
+    await phone.goto(url);
+    await phone.waitForTimeout(2000);
+    await phone.click('#start-btn');
+    await phone.evaluate(() => advanceTime(1500));
+    const right = await phone.locator('[data-key=right]').boundingBox();
+    const attack = await phone.locator('[data-key=attack]').boundingBox();
+    const cdp = await mobile.newCDPSession(phone);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [right, attack].map((b, id) => ({ x: b.x + b.width / 2, y: b.y + b.height / 2, id })) });
+    await phone.evaluate(() => advanceTime(500));
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await phone.screenshot({ path: path.join(out, 'combat-mobile.png') });
+    assert(await phone.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    assert.deepEqual(errors, []);
+    console.log(JSON.stringify({ passed: true, url, screenshots: fs.readdirSync(out), errors }));
+    await context.close();
+    await mobile.close();
+  } finally { await browser.close(); }
+})().catch(e => { console.error(e); process.exit(1); });

@@ -1,0 +1,10 @@
+.test/
+output/
+node_modules/
+*.log
+.signing/
+android/build/
+dist/
+*.jks
+*.keystore
+local.properties
