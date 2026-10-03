@@ -8,3 +8,53 @@
 .mana-track{height:4px;margin-top:4px;background:#33243e;border-radius:3px;overflow:hidden}.mana-track i{display:block;height:100%;background:linear-gradient(90deg,#8559c2,#d3a6ff);transition:width .15s}.resource-labels{display:flex;justify-content:space-between;font-size:8px!important}.resource-labels span:first-child{color:#98e3bd}.resource-labels span:last-child{color:#d3a6ff}.time-score{display:flex;gap:8px;align-items:center;justify-content:flex-end;font-size:10px;color:#e2c892;direction:ltr;font-variant-numeric:tabular-nums}.time-score time{color:#dbe5e0}.boss-hud b{display:none}.toast{display:none!important}.chi-button{color:#a3e9c3!important;border-color:#79cba1!important;background:#16392d!important}.spell-button{color:#d9b8ff!important;background:#33214c!important}.loadout-hud{top:107px}@media(max-width:900px){.loadout-hud{top:89px}}@media(max-width:540px){.loadout-hud{top:90px}.time-score{font-size:8px;gap:4px}}@media(max-height:550px) and (orientation:landscape){.loadout-hud{top:79px}}
 
 .chi-track i{background:linear-gradient(90deg,#438f6c,#a2edc5)}
+
+/* Finger-sized targets for phones, including menus and equipment. */
+@media (pointer:coarse), (max-width:540px) {
+  button, a, [role="button"] { min-width:48px; min-height:48px; }
+  .brand, footer a { display:inline-flex; align-items:center; }
+  .topbar { min-height:64px; }
+  .icon-btn, .score-hud button, .sheet-heading button { width:48px; height:48px; font-size:25px; }
+  .score-hud { padding-right:54px; }
+  .primary, .secondary, .menu-link, .key-binding { min-height:48px; }
+  .menu-row { gap:8px; }
+  .menu-row button { min-width:96px; padding:10px 8px; font-size:13px; border:1px solid #6b77694d; border-radius:4px; }
+  .menu-row button:last-child { border:1px solid #6b77694d; }
+  .loadout-hud { gap:6px; }
+  .loadout-hud button { padding:10px; font-size:11px; }
+  .world-tabs { flex-wrap:wrap; gap:6px; }
+  .world-tabs button { min-width:96px; font-size:12px; padding:10px; }
+  .collection-card b { font-size:13px; }
+  .collection-card small { font-size:10px; }
+  .touch-controls { --touch-size:clamp(48px,13.333vw,56px); left:max(8px,env(safe-area-inset-left)); right:max(8px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); }
+  .dpad, .action-pad { grid-template-columns:repeat(3,var(--touch-size)); grid-template-rows:repeat(2,var(--touch-size)); gap:6px; }
+  .touch-controls button, .action-pad .dodge-button, .action-pad .attack-button { width:var(--touch-size); height:var(--touch-size); font-size:12px; align-self:center; }
+  .dpad button { font-size:22px; }
+  .touch-controls small { display:none; }
+  .boss-hud { bottom:146px; }
+}
+@media (max-width:540px) {
+  .main-menu { max-width:280px; }
+  .title-copy { top:4%; }
+  .title-copy h1 { font-size:50px; margin:10px 0; }
+  .title-copy p { margin-bottom:10px; }
+}
+@media (max-width:350px) {
+  .action-pad { grid-template-columns:repeat(2,48px); grid-template-rows:repeat(3,48px); }
+  .action-pad .spell-button { grid-column:1; grid-row:1; }
+  .action-pad .chi-button { grid-column:2; grid-row:1; }
+  .action-pad .jump-button { grid-column:1; grid-row:2; }
+  .action-pad .dodge-button { grid-column:2; grid-row:2; }
+  .action-pad .kick-button { grid-column:1; grid-row:3; }
+  .action-pad .attack-button { grid-column:2; grid-row:3; }
+  .boss-hud { bottom:198px; }
+  .title-copy { right:5%; width:90%; }
+  .title-copy h1 { font-size:42px; }
+  .title-copy p { font-size:10px; }
+}
+@media (pointer:coarse) and (max-height:550px) and (orientation:landscape) {
+  .title-copy { inset:12px 6% 12px auto; overflow:auto; padding-bottom:8px; }
+  .title-copy h1 { font-size:42px; margin:8px 0; }
+  .menu-row button { min-width:80px; }
+  .boss-hud { left:35%; right:35%; bottom:16px; }
+}
