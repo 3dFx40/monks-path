@@ -25,6 +25,9 @@ const bosses=[
  ['גול־מאר · מלך האורקים',1250,2.1,'#e8bd86',['royal','guard','meteor','warcry'],'צורות לחימה מתחלפות וכוחות המלכים']
 ].map(([name,hp,scale,color,rotation,description],i)=>({id:i,name,hp,scale,color,rotation,description,damage:14+Math.floor(i*.9),cooldown:Math.max(.9,2.2-i*.045)}));
 for(const b of bosses){b.hp=Math.round(b.hp*1.45);b.damage=Math.round(b.damage*1.4);b.cooldown*=.8;b.weapon=b.rotation[0]==='volley'?'bow':['poison','frost','pull','lightning','flame','summon'].includes(b.rotation[0])?'ember':'hammer';}
+// Later worlds raise boss rank without making the opening fight a damage sponge.
+for(const b of bosses){b.rank=1+Math.floor(b.id/3);b.hp=Math.round(b.hp*(1+b.id*.018));b.damage=Math.round(b.damage*(1+b.id*.012));}
+bosses[0].rotation=['slam','charge','guard'];
 const chapters=bosses.map((boss,i)=>({id:i,world:Math.floor(i/3),part:i%3,name:worlds[Math.floor(i/3)].chapters[i%3],boss,length:4400+(i%3)*400+Math.floor(i/3)*120,waves:4}));
 const enemies={
  grunt:{name:'לוחם גרזן',hp:48,speed:62,damage:7,scale:1,hue:0,behavior:'melee'},

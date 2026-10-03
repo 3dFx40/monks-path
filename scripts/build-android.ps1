@@ -1,5 +1,5 @@
 param([string]$Sdk = $env:ANDROID_HOME, [string]$Java = $env:JAVA_HOME,
-      [string]$VersionName = '1.0.1', [int]$VersionCode = 2, [switch]$DebugBuild)
+      [string]$VersionName = '1.0.2', [int]$VersionCode = 3, [switch]$DebugBuild)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 if (!$Sdk) { $Sdk = Join-Path $env:LOCALAPPDATA 'Android\Sdk' }
