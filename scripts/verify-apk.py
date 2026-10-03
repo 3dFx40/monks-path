@@ -5,7 +5,7 @@ import zipfile
 from pathlib import Path
 
 root = Path(__file__).resolve().parent.parent
-apk = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "dist/monks-path-1.0.0.apk"
+apk = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "dist/monks-path-1.0.1.apk"
 web_files = ["index.html", "style.css", "premium.css", "expansion.css", "content.js",
              "art.js", "controls.js", "gear.js", "game.js", "premium.js"]
 files = [root / name for name in web_files] + sorted((root / "assets").glob("*.png"))

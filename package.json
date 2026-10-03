@@ -1,0 +1,13 @@
+{
+  "name": "monks-path",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node tests/weapons.cjs && node tests/mechanics.cjs && node tests/bosses.cjs && node tests/campaign.cjs",
+    "screenshots": "node scripts/capture-screenshots.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.59.1"
+  }
+}

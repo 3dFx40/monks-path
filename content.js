@@ -24,6 +24,7 @@ const bosses=[
  ['אשאר · כהן הלהבה',1030,1.9,'#ecaf70',['flame','summon','meteor'],'טבעת אש, זימונים ומטאורים'],
  ['גול־מאר · מלך האורקים',1250,2.1,'#e8bd86',['royal','guard','meteor','warcry'],'צורות לחימה מתחלפות וכוחות המלכים']
 ].map(([name,hp,scale,color,rotation,description],i)=>({id:i,name,hp,scale,color,rotation,description,damage:14+Math.floor(i*.9),cooldown:Math.max(.9,2.2-i*.045)}));
+for(const b of bosses){b.hp=Math.round(b.hp*1.45);b.damage=Math.round(b.damage*1.4);b.cooldown*=.8;b.weapon=b.rotation[0]==='volley'?'bow':['poison','frost','pull','lightning','flame','summon'].includes(b.rotation[0])?'ember':'hammer';}
 const chapters=bosses.map((boss,i)=>({id:i,world:Math.floor(i/3),part:i%3,name:worlds[Math.floor(i/3)].chapters[i%3],boss,length:4400+(i%3)*400+Math.floor(i/3)*120,waves:4}));
 const enemies={
  grunt:{name:'לוחם גרזן',hp:48,speed:62,damage:7,scale:1,hue:0,behavior:'melee'},
@@ -34,6 +35,8 @@ const enemies={
  shaman:{name:'שאמאן',hp:64,speed:47,damage:10,scale:1.04,hue:250,behavior:'mage'},
  berserker:{name:'ברסרקר',hp:90,speed:84,damage:11,scale:1.16,hue:310,behavior:'rage'}
 };
+const enemyArms={grunt:['axe',88,1.2],scout:['spear',140,.75],brute:['hammer',115,1.7],shield:['axe',90,1.3],archer:['bow',380,1.35],shaman:['ember',380,2.5],berserker:['chain',130,.95]};
+for(const [key,e] of Object.entries(enemies)){e.hp=Math.round(e.hp*1.3);e.damage=Math.round(e.damage*1.35);e.speed*=1.12;[e.weapon,e.range,e.cooldown]=enemyArms[key];}
 const weapons={
  staff:{name:'מוט המנזר',damage:19,range:112,speed:.29,color:'#d5b47b',description:'מאוזן. המכה השלישית חזקה.'},
  spear:{name:'חנית הירח',damage:25,range:158,speed:.37,color:'#b8d9df',description:'טווח ארוך וחוד פלדה.'},
